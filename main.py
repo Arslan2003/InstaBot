@@ -6,6 +6,8 @@ url1 = 'https://www.instagram.com/ted'
 
 login=input("Your login: ")
 password=input("Your password: ")
+hashtag = "#" + input("Enter a word for hashtag (without the symbol of hashtag): ")
+
 
 def login_page():
     login_link = browser.find_element_by_name('username')
@@ -35,6 +37,12 @@ def follow():
         sleep(2)
         i.click()
 
+def search_by_hashtag():
+    sleep(2)
+    search_window = browser.find_element_by_css_selector(".XTCLo")
+    search_window.send_keys(hashtag)
+    select_result = browser.find_element_by_css_selector("a.yCE8d:nth-child(1)")
+    select_result.click()
 
 
 with webdriver.Firefox() as browser:
@@ -42,12 +50,11 @@ with webdriver.Firefox() as browser:
     browser.get(url)
 
     login_page()
-    # not_now_window()
-    #
-    # browser.get(url1)
-    # follow()
+    not_now_window()
 
-
+    browser.get(url1)
+    follow()
+    search_by_hashtag()
 
     sleep(100)
 
